@@ -26,6 +26,7 @@ import (
 var SampleRate float64
 var Value float64
 var Labels string
+var Port int
 
 var cfgFile string
 

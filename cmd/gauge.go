@@ -54,4 +54,5 @@ func init() {
 	rootCmd.AddCommand(gaugeCmd)
 	gaugeCmd.Flags().Float64VarP(&SampleRate, "sampleRate", "s", 1, "The amount to sample your data by")
 	gaugeCmd.Flags().StringVarP(&Labels, "labels", "l", "", "Metadata added to your metric, should be formatted as a key-value pair string with a colon separator e.g 'env:dev'. To send multiple labels seperate each label with a comma")
+	gaugeCmd.Flags().IntVarP(&Port, "port", "p", 8767, "The port to send your metrics to")
 }
