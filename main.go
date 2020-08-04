@@ -14,7 +14,7 @@
 
 package main
 
-import "bluematador-metrics-client-go/cmd"
+import "github.com/bluematador/bluematador-metrics-client-go/cmd"
 
 func main() {
 	cmd.Execute()
