@@ -1,23 +1,9 @@
-// Copyright © 2020 NAME HERE <EMAIL ADDRESS>
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package cmd
 
 import (
 	"errors"
-	"fmt"
 
+	"github.com/bluematador/bluematador-metrics-client-go/internal"
 	"github.com/spf13/cobra"
 )
 
@@ -39,17 +25,20 @@ to quickly create a Cobra application.`,
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		for _, s := range args {
-			fmt.Println(s)
+		sampleRate := SampleRate
+		metricName := args[0]
+		if sampleRate > 1 || sampleRate <= 0 {
+			sampleRate = 1
 		}
-		fmt.Println(Value, SampleRate, Labels)
-		fmt.Println("sending count metric")
+		internal.SendMetric("|c|", metricName, Value, sampleRate, Labels, Port, Host)
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(countCmd)
-	countCmd.Flags().Float64VarP(&Value, "value", "v", 1, "The value to increase your metric by")
-	countCmd.Flags().Float64VarP(&SampleRate, "sampleRate", "s", 1, "The amount to sample your data by")
+	countCmd.Flags().Float32VarP(&Value, "value", "v", 1, "The value to increase your metric by")
+	countCmd.Flags().Float64VarP(&SampleRate, "sample-rate", "s", 1, "The amount to sample your data by")
 	countCmd.Flags().StringVarP(&Labels, "labels", "l", "", "Metadata added to your metric, should be formatted as a key-value pair string with a colon separator e.g 'env:dev'. To send multiple labels seperate each label with a comma")
+	countCmd.Flags().IntVarP(&Port, "port", "p", 8767, "The port to send your metrics to")
+	countCmd.Flags().StringVarP(&Host, "host", "", "localhost", "The host")
 }

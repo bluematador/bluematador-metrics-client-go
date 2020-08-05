@@ -24,9 +24,10 @@ import (
 )
 
 var SampleRate float64
-var Value float64
+var Value float32
 var Labels string
 var Port int
+var Host string
 
 var cfgFile string
 
