@@ -18,7 +18,7 @@ The gauge command takes the metric name and value as its sole arguments.
 	gauge app.request.size 100
 By default all metrics sent to the Blue Matador agent will be stored. 
 To send a sample of data for a give metric use the flag --sample-rate or -s with a value between 0 and 1
-gauge app.request.size 100 -s .5 // 50% of data from this metric will be sent to the agent
+	gauge app.request.size 100 -s .5 // 50% of data from this metric will be sent to the agent
 To add metadata to your metrics use the flag --labels or -l. Format your labels as single string of key value colon seperated labels with each label being separated by a comma.
 	gauge app.request.size 100 -l 'env:dev, account_id:12354'`,
 	Args: func(cmd *cobra.Command, args []string) error {
