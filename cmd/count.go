@@ -12,12 +12,17 @@ import (
 var countCmd = &cobra.Command{
 	Use:   "count metricName",
 	Short: "Send a counter metric",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Long: `Send a counter metric to your BlueMatador dashboard. 
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+The count command takes the metric name as a single argument and defaults to incrementing the metric by 1. 
+count app.homepage.clicks
+To manualy set the amount to increment by use the flag --value or -v
+count app.homepage.clicks -v 2
+By default all metrics sent to the Blue Matador agent will be stored. 
+To send a sample of data for a give metric use the flag --sample-rate or -s with a value between 0 and 1
+count app.homepage.clicks -s .5 // 50% of data from this metric will be sent to the agent
+To add metadata to your metrics use the flag --labels or -l. Format your labels as single string of key value colon seperated labels with each label being separated by a comma.
+count app.homepage.clicks -l 'env:dev, account_id:12354'`,
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 1 {
 			return errors.New("Metric name required to send metric")
