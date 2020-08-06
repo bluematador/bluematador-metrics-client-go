@@ -2,6 +2,8 @@ package cmd
 
 import (
 	"errors"
+	"os"
+	"strconv"
 
 	"github.com/bluematador/bluematador-metrics-client-go/internal"
 	"github.com/spf13/cobra"
@@ -30,7 +32,15 @@ to quickly create a Cobra application.`,
 		if sampleRate > 1 || sampleRate <= 0 {
 			sampleRate = 1
 		}
-		internal.SendMetric("|c|", metricName, Value, sampleRate, Labels, Port, Host)
+		port, err := strconv.Atoi(os.Getenv("BLUEMATADOR_AGENT_PORT"))
+		if err != nil {
+			port = Port
+		}
+		host := os.Getenv("BLUEMATADOR_AGENT_HOST")
+		if host == "" {
+			host = Host
+		}
+		internal.SendMetric("|c|", metricName, Value, sampleRate, Labels, port, host)
 	},
 }
 
