@@ -18,36 +18,32 @@ import (
 	"fmt"
 	"os"
 
-	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
-var SampleRate float64
 var Value float32
 var Labels string
 var Port int
 var Host string
 
-var cfgFile string
-
-// rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "bluematador",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
+	Use:   "bluematador-client",
+	Short: "Send metrics to Blue Matador",
+	Long: `Send metrics to Blue Matador.
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) {},
+Send counter or gauge metrics
+	bluematador-client count app.homepage.clicks
+	//
+	bluematador-client gauge app.request.size 100 
+
+To set the port use the flag --port or -p. The default is 8767
+	bluematador-client --port 8767
+To set the host use the flag --host. The default is 'localhost'
+	bluematador-client --host localhost
+
+**Note: If you have set BLUEMATADOR_AGENT_HOST and BLUEMATADOR_AGENT_PORT in the config file for your agent there is no need to set either using flags.`,
 }
 
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
@@ -56,40 +52,6 @@ func Execute() {
 }
 
 func init() {
-	cobra.OnInitialize(initConfig)
-
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.bluematador-metrics-client-go.yaml)")
-
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-}
-
-// initConfig reads in config file and ENV variables if set.
-func initConfig() {
-	if cfgFile != "" {
-		// Use config file from the flag.
-		viper.SetConfigFile(cfgFile)
-	} else {
-		// Find home directory.
-		home, err := homedir.Dir()
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
-
-		// Search config in home directory with name ".bluematador-metrics-client-go" (without extension).
-		viper.AddConfigPath(home)
-		viper.SetConfigName(".bluematador-metrics-client-go")
-	}
-
-	viper.AutomaticEnv() // read in environment variables that match
-
-	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Println("Using config file:", viper.ConfigFileUsed())
-	}
+	rootCmd.PersistentFlags().IntVarP(&Port, "port", "p", 8767, "The port to send the custom metrics to")
+	rootCmd.PersistentFlags().StringVarP(&Host, "host", "", "localhost", "The host to send the custom metrics to")
 }
