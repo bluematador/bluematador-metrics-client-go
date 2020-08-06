@@ -19,11 +19,9 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) != 2 {
-			return errors.New("Not enough arguments, metric name and value required")
+			return errors.New("Incorrect number of arguments, metric name and value required")
 		} else if _, err := strconv.ParseFloat(args[1], 32); err != nil {
 			return errors.New("Error when parsing metric value")
-		} else if len(args) > 2 {
-			return errors.New("Too many arguments, metric name and value only supported arguments")
 		}
 		return nil
 	},

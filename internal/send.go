@@ -15,6 +15,8 @@ func SendMetric(metricType string, metric string, value float32, sampleRate floa
 	if err != nil {
 		return err
 	}
+	defer conn.Close()
+
 	metricByte := []byte(metricString)
 	conn.Write(metricByte)
 

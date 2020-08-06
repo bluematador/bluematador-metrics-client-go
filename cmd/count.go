@@ -18,7 +18,7 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 1 {
-			return errors.New("Metric Name required to send metric")
+			return errors.New("Metric name required to send metric")
 		} else if len(args) > 1 {
 			return errors.New("Too many arguments, send a single argument for the metric name")
 		}
