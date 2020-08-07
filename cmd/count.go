@@ -16,8 +16,8 @@ var countCmd = &cobra.Command{
 
 The count command takes the metric name as a single argument and defaults to incrementing the metric by 1. 
 	count app.homepage.clicks
-To manualy set the amount to increment by use the flag --value or -v
-	count app.homepage.clicks -v 2
+To manualy set the amount to increment by use the flag --value 
+	count app.homepage.clicks --value 2
 To add metadata to your metrics use the flag --labels or -l. Format your labels as single string of key value colon seperated labels with each label being separated by a comma.
 	count app.homepage.clicks -l 'env:dev,account_id:12354'`,
 	Args: func(cmd *cobra.Command, args []string) error {
