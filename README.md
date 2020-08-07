@@ -19,6 +19,7 @@
 `gauge metricName value [flags]`
   * `metricName: (required)` The metric name e.g. 'myapp.request.size'. Cannot contain ':' or '|'
   * `value: (required)` The latest value to set for the metric
+  
   `flags`: 
   * `--labels or -l` adds metadata to a metric, should be formatted as a key-value pair string with a colon separator e.g 'env:dev'. To send multiple labels seperate each label with a comma e.g 'env:dev,account_id:12354'
 
@@ -39,6 +40,7 @@ bluematador-client gauge request.size 100 --host localhost --port 8181
 ### Count
 `count metricName [flags]`
   * `metricName: (required)` The metric name e.g. 'myapp.request.size'. Cannot contain ':' or '|'
+
   `flags`: 
   * `--value` The amount to increment your metric by, the default value is 1.
   * `--labels or -l` adds metadata to a metric, should be formatted as a key-value pair string with a colon separator e.g 'env:dev'. To send multiple labels seperate each label with a comma e.g 'env:dev,account_id:12354'
