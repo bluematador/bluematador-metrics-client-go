@@ -24,9 +24,11 @@ func SendMetric(metricType string, metric string, value float32, labels string, 
 }
 
 func createMetricString(metricType string, metric string, value float32, labels string) string {
-	stringValue := fmt.Sprintf("%f", value)
-	formattedLabels := strings.ReplaceAll(labels, ",", "#")
-	formattedLabels = strings.ReplaceAll(formattedLabels, " ", "")
-
-	return metric + ":" + stringValue + metricType + "#" + formattedLabels
+	if labels != "" {
+		formattedLabels := strings.ReplaceAll(labels, ",", "#")
+		formattedLabels = strings.ReplaceAll(formattedLabels, " ", "")
+		return fmt.Sprintf("%s:%f|%s|#%s", metric, value, metricType, formattedLabels)
+	} else {
+		return fmt.Sprintf("%s:%f|%s", metric, value, metricType)
+	}
 }
