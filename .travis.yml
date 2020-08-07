@@ -1,14 +1,13 @@
 language: go
-
 go:
 - 1.14
-
 script: GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o bluematador-client ./cmd
-
 deploy:
   provider: releases
-  api_key: "GITHUB OAUTH TOKEN"
-  file: "FILE TO UPLOAD"
   skip_cleanup: true
+  api_key:
+    secure: If503CTgSOTJtKZQ5f/yHybUq+K+s/it4jiekfskBnifre0pWczxN1KfR7RKohcjNVLIdG6Bq5rXG/vHrl5Vrvdv6luq8XUfhRb1aDpTupys7zkgBkTE8nP8DVi1Y9MhNo6rvBuST5xIHS+8EfUEOQ7JzDgDXWF/QXxgQGiyfVilK9x37xLv9kNjoNPf1SaEaXCKCr7OQ/v9x+7d/qvKF0Tp2H3Xhzla01GN8wWugiTDdghSyrqIDzw9G/9ja1Jw0e8fC+EsgbOTSxxZYjhNVOFFm5XyPs82dNbd6DoxKlqQVSmFhuAegW80ChC2TFBBi5wbnb0GWft5i6U64UlPf4TyIM+kpuoVHbxRu7JFR9ye89MafZSvwLww0kW2LIcIdwvKzXnHXkot5MWxyytssJsGruyI5rUr+M8erqN82x/rtgNpF0QEGViPRTHSzSFz/g5uqc+V/vAu6lDl6ok5Uji6Qd/h7qqOix82BGZG+gkjnud5Hv6wu+w9I6RUbK5TNP9dEUB1+g/YjYX0QuElINIzD1CO2UG+DbbjW0xk7S1cayYyZnLRRdLkJ00Lo0pept2CY9W9OdiygGCSeVBUznrhUCCzmCW1UasRtner7HpRP5U5ZvYEQVp/ZHvAFJJApHfEaaBuoxpmtgof9zqDvxV8LjOtkRps7+UilHZmcuY=
+  file: bluematador-client
   on:
+    repo: bluematador/bluematador-metrics-client-go
     tags: true
