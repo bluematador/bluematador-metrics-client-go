@@ -14,8 +14,14 @@
 
 package main
 
-import "github.com/bluematador/bluematador-metrics-client-go/cmd"
+import (
+	"fmt"
+
+	"github.com/bluematador/bluematador-metrics-client-go/client"
+)
 
 func main() {
-	cmd.Execute()
+	// cmd.Execute()
+	fmt.Println("executing main function")
+	client.Gauge("app.test.gauge", 10025, 1, "env:dev, accountId:1234", 8080)
 }
