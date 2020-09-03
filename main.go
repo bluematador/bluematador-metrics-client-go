@@ -14,21 +14,17 @@
 
 package main
 
-import (
-	"fmt"
-
-	"github.com/bluematador/bluematador-metrics-client-go/client"
-)
+import "github.com/bluematador/bluematador-metrics-client-go/cmd"
 
 func main() {
-	// cmd.Execute()
-	fmt.Println("executing main function")
-	blueMatador := client.NewBlueMatadorClientWithPrefix("prefix:")
-	blueMatador.Gauge("app:test.gauge", 10025, "env:#dev#prod, accountId#|:1234")
-	blueMatador.GaugeWithSampleRate("app:test.gauge", 10025, "env:#dev#prod, accountId#|:1234", .5)
-	blueMatador.Count("app.test.counter|", "env:#dev")
-	blueMatador.CountWithSampleRate("app.count.sample", "env:test", .75)
-	blueMatador.CountWithValue("app.count.value", 25, "env:yoyo")
-	blueMatador.CountWithValueAndSample("app.count.sampleValue", 10, "env:yes", .5)
+	cmd.Execute()
+	// fmt.Println("executing main function")
+	// blueMatador := client.NewBlueMatadorClientWithPrefix("prefix:")
+	// blueMatador.Gauge("app:test.gauge", 10025, "env:#dev#prod, accountId#|:1234")
+	// blueMatador.GaugeWithSampleRate("app:test.gauge", 10025, "env:#dev#prod, accountId#|:1234", .5)
+	// blueMatador.Count("app.test.counter|", "env:#dev")
+	// blueMatador.CountWithSampleRate("app.count.sample", "env:test", .75)
+	// blueMatador.CountWithValue("app.count.value", 25, "env:yoyo")
+	// blueMatador.CountWithValueAndSample("app.count.sampleValue", 10, "env:yes", .5)
 
 }

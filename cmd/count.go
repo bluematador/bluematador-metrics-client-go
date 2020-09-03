@@ -5,6 +5,7 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/bluematador/bluematador-metrics-client-go/client"
 	"github.com/bluematador/bluematador-metrics-client-go/internal"
 	"github.com/spf13/cobra"
 )
@@ -38,7 +39,7 @@ To add metadata to your metrics use the flag --labels or -l. Format your labels 
 		if host == "" {
 			host = Host
 		}
-		internal.SendMetric("c", metricName, Value, float32(1), Labels, port, host)
+		internal.SendMetric("c", client.Sanitize(metricName, ":"), Value, float32(1), client.Sanitize(Labels, "#"), port, host)
 	},
 }
 
