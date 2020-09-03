@@ -1,68 +1,29 @@
 package client
 
-// func Count(args ...interface{}) error {
-// 	if len(args) < 2 {
-// 		return errors.New("Not enough parameters to create metric")
-// 	}
+import (
+	"github.com/bluematador/bluematador-metrics-client-go/internal"
+)
 
-// 	metric := &Metric{
-// 		metricType	Metrics.Count
-// 		sampleRate  1
-// 		port 		8767
-// 		host		"localhost"
-// 	}
+func (this *BlueMatadorClient) Count(name string, labels string) {
+	metric := CreateMetric(name, float32(1), float32(1), labels)
 
-// 	for i, arg := range args {
-// 		switch i {
-// 		case 0:
-// 			name, ok := arg.(string)
-// 			if !ok {
-// 				return errors.New("Metric name must be a string")
-// 			}
-// 			metric.name = name
-// 		case 1:
-// 			value, ok := arg.(float32)
-// 			if !ok {
-// 				return errors.New("Metric value must be a number")
-// 			}
-// 			metric.value = value
-// 		case 2:
-// 			sampleRate, ok := arg.(float32)
-// 			if !ok {
-// 				return errors.New("Metric sample rate must be a number between 0 and 1")
-// 			}
+	internal.SendMetric("c", metric.name, metric.value, metric.sampleRate, metric.labels, this.port, this.host)
+}
 
-// 			if sampleRate < 0 || sampleRate > 1 {
-// 				return errors.New("Metric sample rate must be a number between 0 and 1")
-// 			}
-// 			metric.sampleRate = sampleRate
-// 		case 3:
-// 			labels, ok := arg.(string)
-// 			if !ok {
-// 				return errors.New("Metric labels must be a string")
-// 			}
-// 			metric.labels = labels
-// 		case 4:
-// 			port, ok := arg.(int)
-// 			if !ok {
-// 				return errors.New("Port must be a number")
-// 			}
-// 			metric.port = port
-// 		case 5:
-// 			host, ok := arg.(string)
-// 			if !ok {
-// 				return errors.New("Host must be a string")
-// 			}
-// 			metric.host = host
-// 		default:
-// 			return errors.New("Too many arguments to create metric")
-// 		}
-// 	}
+func (this *BlueMatadorClient) CountWithSampleRate(name string, labels string, sampleRate float32) {
+	metric := CreateMetric(name, float32(1), sampleRate, labels)
 
-// 	fmt.Printf("metric name", metric.name)
-// 	fmt.Printf("metric value", metric.value)
-// 	fmt.Printf("metric sampleRate", metric.sampleRate)
-// 	fmt.Printf("metric labels", metric.labels)
-// 	fmt.Printf("metric port", metric.port)
-// 	fmt.Printf("metric host", metric.host)
-// }
+	internal.SendMetric("c", metric.name, metric.value, metric.sampleRate, metric.labels, this.port, this.host)
+}
+
+func (this *BlueMatadorClient) CountWithValue(name string, value float32, labels string) {
+	metric := CreateMetric(name, value, float32(1), labels)
+
+	internal.SendMetric("c", metric.name, metric.value, metric.sampleRate, metric.labels, this.port, this.host)
+}
+
+func (this *BlueMatadorClient) CountWithValueAndSample(name string, value float32, labels string, sampleRate float32) {
+	metric := CreateMetric(name, value, sampleRate, labels)
+
+	internal.SendMetric("c", metric.name, metric.value, metric.sampleRate, metric.labels, this.port, this.host)
+}

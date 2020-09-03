@@ -40,7 +40,7 @@ To add metadata to your metrics use the flag --labels or -l. Format your labels 
 		if host == "" {
 			host = Host
 		}
-		internal.SendMetric("g", metricName, float32(value), Labels, port, host)
+		internal.SendMetric("g", metricName, float32(value), float32(1), Labels, port, host)
 	},
 }
 
