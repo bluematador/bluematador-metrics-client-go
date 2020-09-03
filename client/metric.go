@@ -11,8 +11,11 @@ type Metric struct {
 	labels     string
 }
 
-func CreateMetric(name string, value float32, sampleRate float32, labels string) *Metric {
+func (this *BlueMatadorClient) CreateMetric(name string, value float32, sampleRate float32, labels string) *Metric {
 	metricName := Sanitize(name, ":")
+	if this.prefix != "" {
+		metricName = this.prefix + "." + metricName
+	}
 	metricLabels := Sanitize(labels, "#")
 	metricSampleRate := sampleRate
 	if sampleRate < 0 || sampleRate > 1 {

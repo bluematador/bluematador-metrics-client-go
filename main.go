@@ -23,7 +23,7 @@ import (
 func main() {
 	// cmd.Execute()
 	fmt.Println("executing main function")
-	blueMatador := client.NewBlueMatadorClient()
+	blueMatador := client.NewBlueMatadorClientWithPrefix("prefix:")
 	blueMatador.Gauge("app:test.gauge", 10025, "env:#dev#prod, accountId#|:1234")
 	blueMatador.GaugeWithSampleRate("app:test.gauge", 10025, "env:#dev#prod, accountId#|:1234", .5)
 	blueMatador.Count("app.test.counter|", "env:#dev")
