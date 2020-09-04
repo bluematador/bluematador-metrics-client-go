@@ -4,7 +4,7 @@
 
 ## Installation
 
-To install the bash client download the [bluematador-client](https://github.com/bluematador/bluematador-metrics-client-go/releases/tag/1.0.0) executable and make it a global command for your environment.
+To install the bash client download the [bluematador-client](https://github.com/bluematador/bluematador-metrics-client-go/releases/tag/1.0.1) executable and make it a global command for your environment.
 
 ## Setup
 
