@@ -7,8 +7,8 @@ import (
 	"strings"
 )
 
-func SendMetric(metricType string, metric string, value float32, labels string, port int, host string) error {
-	metricString := createMetricString(metricType, metric, value, labels)
+func SendMetric(metricType string, metric string, value float32, sampleRate float32, labels string, port int, host string) error {
+	metricString := createMetricString(metricType, metric, value, sampleRate, labels)
 	portString := strconv.Itoa(port)
 	address := net.JoinHostPort(host, portString)
 	conn, err := net.Dial("udp", address)
@@ -23,12 +23,12 @@ func SendMetric(metricType string, metric string, value float32, labels string, 
 	return nil
 }
 
-func createMetricString(metricType string, metric string, value float32, labels string) string {
+func createMetricString(metricType string, metric string, value float32, sampleRate float32, labels string) string {
 	if labels != "" {
 		formattedLabels := strings.ReplaceAll(labels, ",", "#")
 		formattedLabels = strings.ReplaceAll(formattedLabels, " ", "")
-		return fmt.Sprintf("%s:%f|%s|#%s", metric, value, metricType, formattedLabels)
+		return fmt.Sprintf("%s:%f|%s|@%f|#%s", metric, value, metricType, sampleRate, formattedLabels)
 	} else {
-		return fmt.Sprintf("%s:%f|%s", metric, value, metricType)
+		return fmt.Sprintf("%s:%f|%s|@%f", metric, value, metricType, sampleRate)
 	}
 }
