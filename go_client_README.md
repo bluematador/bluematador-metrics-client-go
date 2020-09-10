@@ -25,6 +25,8 @@ func NewBlueMatadorClient() *BlueMatadorClient
 
 ```
 `NewBlueMatadorClient` instantiates a BlueMatadorClient with the default host ("localhost") and port (8767) address. If you have set `BLUEMATADOR_AGENT_HOST` and `BLUEMATADOR_AGENT_PORT` in the config file for your agent these variables will be used for the address. 
+ 
+ **Note:** The environment variables are read from your `docker-compose` file and not the `config.ini` file. If you are not using a docker environment use the `NewBlueMatadorClientWithAddress` function to set the connection address. 
 
 ```
 blueMatador := client.NewBlueMatadorClient()
