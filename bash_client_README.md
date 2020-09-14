@@ -14,7 +14,7 @@ To install the bash client download the [bluematador-client](https://github.com/
   * `--port or -p` specifies the port to send the custom metrics to. If no port is specified, `8767` is the default port. 
 
 
-**Note:** The client will automatically detect if you have set `BLUEMATADOR_AGENT_HOST` and `BLUEMATADOR_AGENT_PORT` in the config file for your agent. These variables will be used over manually setting the host or port.   
+**Note:** The client will automatically detect if you have set `BLUEMATADOR_AGENT_HOST` and `BLUEMATADOR_AGENT_PORT` as env variables. These variables will be used over manually setting the host or port.   
 
 ## Commands
 
